@@ -6,6 +6,12 @@ exec 2>&1
 UUID=${UUID:-'de04add9-5c68-8bab-950c-08cd5320df18'}
 WSPATH=${WSPATH:-'argo'}
 
+
+check_argo() {
+  ! nc -vzw3 198.41.192.77 7844 && echo -e '********************\nError: Argo 不可用\n********************' && exit 1 || echo -e '********************\nArgo 可用\n********************'
+}
+
+
 generate_config() {
   cat > /tmp/config.json << EOF
 {
@@ -101,7 +107,7 @@ protocol: http2
 
 ingress:
   - hostname: \$ARGO_DOMAIN
-    service: http://localhost:8080
+    service: http://localhost:63003
 EOF
 
   cat >> /tmp/tunnel.yml << EOF
@@ -133,7 +139,7 @@ module.exports = {
 EOF
 }
 
-
+check_argo
 generate_config
 generate_argo
 generate_pm2_file
