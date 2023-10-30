@@ -34,26 +34,6 @@ app.get("/listen", function (req, res) {
   });
 });
 
-//获取系统版本、内存信息
-app.get("/info", function (req, res) {
-  let cmdStr = "cat /etc/*release | grep -E ^NAME";
-  exec(cmdStr, function (err, stdout, stderr) {
-    if (err) {
-      res.send("命令行执行错误：" + err);
-    }
-    else {
-      res.send(
-        "命令行执行结果：\n" +
-        "Linux System:" +
-        stdout +
-        "\nRAM:" +
-        os.totalmem() / 1000 / 1000 +
-        "MB"
-      );
-    }
-  });
-});
-
 app.use(
   "/",
   createProxyMiddleware({
