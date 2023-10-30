@@ -10,6 +10,9 @@ RUN set -ex \
     && yarn install \
     && yarn global add pm2 \
     && chmod +x entrypoint.sh \
+    && wget -O cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb \
+    && dpkg -i cloudflared.deb \
+    && rm -f cloudflared.deb \
     && curl -fsSLO --compressed "https://github.com/SagerNet/sing-box/releases/download/v1.5.3/sing-box-1.5.3-linux-amd64.tar.gz" \
     && tar -zxvf sing-box* \
     && cd sing-box-1.5.3-linux-amd64 \
