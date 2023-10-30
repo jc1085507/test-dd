@@ -127,10 +127,7 @@ module.exports = {
           args: "${ARGO_ARGS}",
           out_file: "/dev/null",
           error_file: "/dev/null"
-EOF
-
-  cat >> /tmp/ecosystem.config.js << EOF
-      }
+    }
   ]
 }
 EOF
